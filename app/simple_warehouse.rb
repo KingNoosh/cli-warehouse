@@ -73,7 +73,7 @@ class SimpleWarehouse
   end
 
   def locate_objects p
-    if !w.nil?
+    if !p.nil?
       objects = []
       @map_objects.each {
         |e|
@@ -81,6 +81,12 @@ class SimpleWarehouse
           objects.push e
         end
       }
+      if objects.length > 0
+        puts "The locations of product id #{p} are:"
+        objects.each { |e| puts "Width: #{e[:w]}, Height: #{e[:h]} @ #{e[:x]},#{e[:y]}" }
+      else
+        puts "There are no products with the id of #{p}"
+      end
     else
       show_missing_args_message ['product id']
     end
@@ -89,7 +95,6 @@ class SimpleWarehouse
   def remove_object x, y
     if !x.nil? && !y.nil?
       obj_index = get_object x.to_i, y.to_i
-      puts obj_index
       if !obj_index.nil?
         @map_objects.delete_at obj_index
         puts "Deleted product at #{x},#{y}"
